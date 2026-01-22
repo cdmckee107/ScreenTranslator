@@ -67,13 +67,13 @@ def extract(src, dest):
 
     is_tar_smth = src.endswith('.tar', 0, src.rfind('.'))
     if which('7z'):
-        sub.run('7z x "{}" -o"{}"'.format(abs_path, dest),
-                check=True, shell=True, input=b'S\n')
+        sub.run('7z x "{}" -o"{}" -y'.format(abs_path, dest),
+                check=True, shell=True)
 
         if is_tar_smth:
             inner_name = abs_path[:abs_path.rfind('.')]
-            sub.run('7z x "{}" -o"{}"'.format(inner_name, dest),
-                    check=True, shell=True, input=b'S\n')
+            sub.run('7z x "{}" -o"{}" -y'.format(inner_name, dest),
+                    check=True, shell=True)
         return
 
     if src.endswith('.tar') or is_tar_smth:
@@ -127,12 +127,29 @@ def archive(files, out):
 
 def symlink(src, dest):
     print('>> Creating symlink', src, '=>', dest)
-    norm_src = os.path.normcase(src)
-    norm_dest = os.path.normcase(dest)
+    norm_src = os.path.abspath(src)
+    norm_dest = os.path.abspath(dest)
     if os.path.lexists(norm_dest):
-        os.remove(norm_dest)
-    os.symlink(norm_src, norm_dest,
-               target_is_directory=os.path.isdir(norm_src))
+        if os.path.isdir(norm_dest):
+            shutil.rmtree(norm_dest, ignore_errors=True)
+        else:
+            os.remove(norm_dest)
+    
+    # On Windows, use junction for directories and hard links for files to avoid admin requirement
+    if platform.system() == "Windows":
+        if os.path.isdir(norm_src):
+            sub.run('mklink /J "{}" "{}"'.format(norm_dest, norm_src), 
+                    check=True, shell=True, stdout=sub.DEVNULL)
+        else:
+            # Use hard link for files on Windows (no admin required)
+            try:
+                os.link(norm_src, norm_dest)
+            except:
+                # Fallback to copy if hard link fails
+                shutil.copy2(norm_src, norm_dest)
+    else:
+        os.symlink(norm_src, norm_dest,
+                   target_is_directory=os.path.isdir(norm_src))
 
 
 def recreate_dir(path):

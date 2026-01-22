@@ -4,6 +4,7 @@
 #include "task.h"
 
 #include <leptonica/allheaders.h>
+#include <leptonica/pix_internal.h>
 #include <tesseract/baseapi.h>
 
 #include <QBuffer>

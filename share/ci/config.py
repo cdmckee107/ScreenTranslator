@@ -5,15 +5,26 @@ app_name = 'ScreenTranslator'
 
 target_name = app_name
 qt_version = '5.15.2'
-qt_modules = ['qtbase', 'qttools', 'icu',
-              'qttranslations', 'qtx11extras', 'qtwebengine', 'qtwebchannel',
-              'qtdeclarative', 'qtlocation', 'opengl32sw', 'd3dcompiler_47',
-              'qtserialport']
-qt_dir = path.abspath('qt')
-ssl_dir = path.abspath('ssl')
 
-build_dir = path.abspath('build')
-dependencies_dir = path.abspath('deps')
+# qtx11extras is Linux-only, remove for Windows builds
+qt_modules_common = ['qtbase', 'qttools', 'icu', 'qttranslations',
+                     'qtwebengine', 'qtwebchannel', 'qtdeclarative', 
+                     'qtlocation', 'qtserialport']
+qt_modules_windows = ['opengl32sw', 'd3dcompiler_47']
+qt_modules_linux = ['qtx11extras']
+
+os_name = getenv('OS', 'linux')
+if os_name in ['win32', 'win64']:
+    qt_modules = qt_modules_common + qt_modules_windows
+else:
+    qt_modules = qt_modules_common + qt_modules_linux
+
+script_dir = path.dirname(path.abspath(__file__))
+qt_dir = path.join(script_dir, 'qt')
+ssl_dir = path.join(script_dir, 'ssl')
+
+build_dir = path.join(script_dir, 'build')
+dependencies_dir = path.join(script_dir, 'deps')
 pro_file = path.abspath(path.dirname(__file__) +
                         '/../../screen-translator.pro')
 test_pro_file = path.abspath(path.dirname(__file__) +
@@ -26,10 +37,9 @@ with open(pro_file, 'r') as f:
         app_version = match.group(1)
 ts_files_dir = path.abspath(path.dirname(__file__) + '/../../translations')
 
-os_name = getenv('OS', 'linux')
 app_version += {'linux': '', 'macos': '-experimental',
                 'win32': '', 'win64': ''}[os_name]
 bitness = '32' if os_name == 'win32' else '64'
-msvc_version = getenv('MSVC_VERSION', 'C:/Program Files (x86)/Microsoft Visual Studio/2019/Community')
+msvc_version = getenv('MSVC_VERSION', 'C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools')
 
 build_type = 'release' # 'debug'

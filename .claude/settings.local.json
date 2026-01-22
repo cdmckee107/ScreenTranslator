@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nFix build system to automatically deploy DLL dependencies\n\nAdd automatic deployment of runtime dependencies:\n- Custom DLLs \\(leptonica, tesseract, hunspell\\) copied via qmake\n- Qt DLLs, plugins, and resources deployed via windeployqt\n- Eliminates manual DLL copying after build\n\nFixes #192\n\nCo-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git reset:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nUpdate repository URLs to point to fork\n\nReplace all references to OneMoreGres/ScreenTranslator with cdmckee107/ScreenTranslator:\n- Update manifest URL for automatic updates\n- Update GitHub repository links in UI\n- Update translator script URLs in updates.json\n- Update documentation links in README\n- Update build script default download URL\n\nCo-Authored-By: Claude Haiku 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(taskkill:*)",
+      "Bash(powershell:*)",
+      "Bash(python3:*)",
+      "Bash(python:*)",
+      "Bash(export OS=\"win64\")",
+      "Bash(git commit:*)"
+    ]
+  }
+}

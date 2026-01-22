@@ -673,12 +673,12 @@ Check for updates to silence this warning</source>
         <translation>неизвестные языки для перевода: %1 или %2</translation>
     </message>
     <message>
-        <location filename="../../src/ocr/tesseract.cpp" line="234"/>
+        <location filename="../../src/ocr/tesseract.cpp" line="235"/>
         <source>init failed</source>
         <translation>ошибка инициалиизации</translation>
     </message>
     <message>
-        <location filename="../../src/ocr/tesseract.cpp" line="294"/>
+        <location filename="../../src/ocr/tesseract.cpp" line="295"/>
         <source>Failed to recognize text or no text selected</source>
         <translation>Ошибка распознавания текста или нет текста в выделенной зоне</translation>
     </message>
@@ -1536,7 +1536,7 @@ Error %2</source>
 %1</translation>
     </message>
     <message>
-        <location filename="../../src/service/updates.cpp" line="921"/>
+        <location filename="../../src/service/updates.cpp" line="916"/>
         <source>Update all</source>
         <translation>Обновить все</translation>
     </message>

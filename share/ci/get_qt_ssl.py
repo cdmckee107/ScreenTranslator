@@ -29,6 +29,8 @@ updates = ET.parse(updates_file)
 updates_root = updates.getroot()
 url = ''
 file_name = ''
+latest_version = None
+# Fetch the latest OpenSSL version (should be 3.x or latest 1.1.1+ for security)
 for i in updates_root.iter('PackageUpdate'):
     name = i.find('Name').text
     if not 'qt.tools.openssl' in name:
@@ -39,12 +41,17 @@ for i in updates_root.iter('PackageUpdate'):
         continue
 
     version = i.find('Version').text
-    url = base_url + '/' + name + '/' + version + archives.text
-    file_name = archives.text
+    # Select latest version by comparing version strings
+    if latest_version is None or version > latest_version:
+        latest_version = version
+        url = base_url + '/' + name + '/' + version + archives.text
+        file_name = archives.text
 
 if len(url) == 0:
     c.print('>> No ssl url found')
     exit(1)
+
+c.print('>> Selected OpenSSL version: {}'.format(latest_version))
 
 c.download(url, file_name)
 c.extract(file_name, '.')
