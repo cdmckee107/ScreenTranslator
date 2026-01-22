@@ -24,3 +24,11 @@ qmake_flags = os.environ.get('QMAKE_FLAGS','') + ' CONFIG+=' + build_type_flag
 c.run('qmake {} "{}"'.format(qmake_flags, pro_file))
 make_cmd = c.get_make_cmd()
 c.run(make_cmd)
+
+# Deploy dependencies on Windows
+if platform.system() == "Windows":
+    exe_path = os.path.join(build_dir, 'release', 'screen-translator.exe')
+    if os.path.exists(exe_path):
+        c.print('>> Deploying Qt runtime dependencies...')
+        windeployqt = os.path.join(qt_dir, 'bin', 'windeployqt.exe')
+        c.run('"{}" --release "{}"'.format(windeployqt, exe_path))

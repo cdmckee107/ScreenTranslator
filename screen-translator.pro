@@ -12,6 +12,8 @@ LIBS += -lhunspell -lleptonica -ltesseract
 
 win32{
   LIBS += -lUser32
+  # Define that we're importing from Leptonica DLL
+  DEFINES += LIBLEPT_IMPORTS
 }
 linux{
   QT += x11extras
@@ -136,6 +138,15 @@ win32 {
     RC_ICONS = $$PWD/share/images/icon.ico
     target.path = /
     INSTALLS += target
+
+    # Deploy runtime dependencies
+    DEPS_DLLS = $$DEPS_DIR/bin/leptonica*.dll \
+                $$DEPS_DIR/bin/tesseract*.dll \
+                $$DEPS_DIR/bin/hunspell*.dll
+
+    for(dll, DEPS_DLLS) {
+        QMAKE_POST_LINK += $$quote(cmd /c copy /Y $$shell_path($$dll) $$shell_path($$OUT_PWD/release/) $$escape_expand(\\n\\t))
+    }
 }
 mac {
     ICON = $$PWD/share/images/icon.icns
