@@ -10,11 +10,11 @@ Translation is currently done via online services.
 
 ## Installation
 
-**Windows**: download archive from [github releases](https://github.com/OneMoreGres/ScreenTranslator/releases) page, extract it and run `.exe` file.
+**Windows**: download archive from [github releases](https://github.com/cdmckee107/ScreenTranslator/releases) page, extract it and run `.exe` file.
 
 If the app fails to start complaining about missing dlls or there are any update errors related to SSL/TLS then install or repair `vs_redist*.exe` from the release archive.
 
-**Linux**: download `.AppImage` file from [github releases](https://github.com/OneMoreGres/ScreenTranslator/releases), make executable (`chmod +x <file>`) and run it.
+**Linux**: download `.AppImage` file from [github releases](https://github.com/cdmckee107/ScreenTranslator/releases), make executable (`chmod +x <file>`) and run it.
 
 **OS X**: currently not supported.
 
@@ -49,7 +49,7 @@ Then click `Ok` to close settings.
 * to translate with online AI services use scripts from [here](https://github.com/Suki8898/Translator)
 
 * to install Hebrew translation of the app itself (thanks to [Y-PLONI](https://github.com/Y-PLONI)),
-download [this](https://github.com/OneMoreGres/ScreenTranslator/releases/download/3.3.0/screentranslator_he.qm)
+download [this](https://github.com/cdmckee107/ScreenTranslator/releases/download/3.3.0/screentranslator_he.qm)
 file and place it into the `translations` folder next to `screen-translator.exe`.
 
 ## Usage
@@ -68,7 +68,7 @@ If `Portable` setting in `General` section is checked, then resources will be do
 Set `QTWEBENGINE_DISABLE_SANDBOX=1` environment variable when fail to start due to crash.
 
 Answers to some frequently asked questions can be found in issues or
-[wiki](https://github.com/OneMoreGres/ScreenTranslator/wiki/FAQ)
+[wiki](https://github.com/cdmckee107/ScreenTranslator/wiki/FAQ)
 
 ## Limitations
 
